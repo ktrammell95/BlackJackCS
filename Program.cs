@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace BlackJackCS
 {
+
     class Dealer
     {
         public string Card { get; set; }
@@ -92,7 +93,7 @@ namespace BlackJackCS
         }
         public void PrintCards()
         {
-            Console.WriteLine($"Dealer Cards: {Card}");
+            Console.WriteLine($"Dealer Card: {Card}");
 
         }
     }
@@ -185,7 +186,7 @@ namespace BlackJackCS
         }
         public void PrintCards()
         {
-            Console.WriteLine($"Player Cards: {Card}");
+            Console.WriteLine($"Player Card: {Card}");
 
         }
     }
@@ -255,38 +256,41 @@ namespace BlackJackCS
             };
 
             // - Display Player Cards
-
+            var playerPoints = PlayerCardOne.Points() + PlayerCardTwo.Points();
             PlayerCardOne.PrintCards();
             PlayerCardTwo.PrintCards();
-            Console.WriteLine(PlayerCardOne.Points() + PlayerCardTwo.Points());
+            Console.WriteLine(playerPoints);
 
 
 
             // - If Player HITS:
             //   -- Loop to add to Player card List - Pull 1 card for Player
-
-            var userInput = PromptForResponse("Would you like to HIT, or STAND? ");
-
-            if (userInput == "HIT" || userInput == "Hit" || userInput == "hit")
+            while (playerPoints < 21)
             {
-                var PlayerCardThree = new Player
+                var userInput = PromptForResponse("Would you like to HIT, or STAND? ");
+
+                if (userInput == "HIT" || userInput == "Hit" || userInput == "hit")
                 {
-                    Card = cards[4],
-                };
-                PlayerCardOne.PrintCards();
-                PlayerCardTwo.PrintCards();
-                PlayerCardThree.PrintCards();
-                Console.WriteLine(PlayerCardOne.Points() + PlayerCardTwo.Points() + PlayerCardThree.Points());
 
-            }
-            else if (userInput == "STAND" || userInput == "Stand" || userInput == "stand")
-            {
-                Console.WriteLine($"User selected STAND");
-                // Console.WriteLine($"Dealer Cards: {dealerCards[0]} and {dealerCards[1]} ");
-            }
-            else
-            {
-                Console.WriteLine($"Please make a valid selection");
+                    var PlayerCardThree = new Player
+                    {
+                        Card = cards[4],
+                    };
+                    PlayerCardOne.PrintCards();
+                    PlayerCardTwo.PrintCards();
+                    PlayerCardThree.PrintCards();
+                    Console.WriteLine(PlayerCardOne.Points() + PlayerCardTwo.Points() + PlayerCardThree.Points());
+
+                }
+                else if (userInput == "STAND" || userInput == "Stand" || userInput == "stand")
+                {
+                    Console.WriteLine($"User selected STAND");
+                    // Console.WriteLine($"Dealer Cards: {dealerCards[0]} and {dealerCards[1]} ");
+                }
+                else
+                {
+                    Console.WriteLine($"Please make a valid selection");
+                }
             }
 
             // - Display Dealer Cards
@@ -303,22 +307,26 @@ namespace BlackJackCS
             //   -- If >= 17, no change
             //   -- If Dealer goes over 21, BUST
 
-            if (DealerCardOne.Points() + DealerCardTwo.Points() <= 16)
+            var dealerpoints = DealerCardOne.Points() + DealerCardTwo.Points();
+
+            if (dealerpoints <= 16)
             {
-                Console.WriteLine(DealerCardOne.Points() + DealerCardTwo.Points());
+                Console.WriteLine(dealerpoints);
                 Console.WriteLine($"Pick a card");
             }
-            if (DealerCardOne.Points() + DealerCardTwo.Points() >= 17 && DealerCardOne.Points() + DealerCardTwo.Points() <= 21)
+            if (dealerpoints >= 17 && dealerpoints <= 21)
             {
-                Console.WriteLine(DealerCardOne.Points() + DealerCardTwo.Points());
+                Console.WriteLine(dealerpoints);
                 Console.Write($"Don't pick a card");
             }
-            else if (DealerCardOne.Points() + DealerCardTwo.Points() >= 17 && DealerCardOne.Points() + DealerCardTwo.Points() < 21)
+            else if (dealerpoints >= 17 && dealerpoints < 21)
             {
-                Console.WriteLine(DealerCardOne.Points() + DealerCardTwo.Points());
+                Console.WriteLine(dealerpoints);
                 Console.Write($"Dealer is BUST!!");
             }
         }
+
+
     }
 
 }

@@ -3,300 +3,172 @@ using System.Collections.Generic;
 
 namespace BlackJackCS
 {
+    class Card
+    {
+        public string Suit { get; set; }
+        public string Value { get; set; }
 
+        public int Points()
+        {
+            switch (Value)
+            {
+                case "2":
+                case "3":
+                case "4":
+                case "5":
+                case "6":
+                case "7":
+                case "8":
+                case "9":
+                case "10":
+                    return int.Parse(Value);
+                case "Jack":
+                case "Queen":
+                case "King":
+                    return 10;
+                case "Ace":
+                    return 11;
+                default:
+                    return 0;
+            }
+        }
+
+    }
+
+    class Hand
+    {
+
+    }
     class Dealer
     {
         public string Card { get; set; }
-        public int Points()
-        {
-            var cardValue = 0;
-            switch (Card)
-            {
-                case "Ace of Clubs":
-                case "Ace of Hearts":
-                case "Ace of Spades":
-                case "Ace of Diamonds":
-                    cardValue = 1;
-                    break;
-                case "2 of Clubs":
-                case "2 of Hearts":
-                case "2 of Spades":
-                case "2 of Diamonds":
-                    cardValue = 2;
-                    break;
-                case "3 of Clubs":
-                case "3 of Hearts":
-                case "3 of Spades":
-                case "3 of Diamonds":
-                    cardValue = 3;
-                    break;
-                case "4 of Clubs":
-                case "4 of Hearts":
-                case "4 of Spades":
-                case "4 of Diamonds":
-                    cardValue = 4;
-                    break;
-                case "5 of Clubs":
-                case "5 of Hearts":
-                case "5 of Spades":
-                case "5 of Diamonds":
-                    cardValue = 5;
-                    break;
-                case "6 of Clubs":
-                case "6 of Hearts":
-                case "6 of Spades":
-                case "6 of Diamonds":
-                    cardValue = 6;
-                    break;
-                case "7 of Clubs":
-                case "7 of Hearts":
-                case "7 of Spades":
-                case "7 of Diamonds":
-                    cardValue = 7;
-                    break;
-                case "8 of Clubs":
-                case "8 of Hearts":
-                case "8 of Spades":
-                case "8 of Diamonds":
-                    cardValue = 8;
-                    break;
-                case "9 of Clubs":
-                case "9 of Hearts":
-                case "9 of Spades":
-                case "9 of Diamonds":
-                    cardValue = 9;
-                    break;
-                case "10 of Clubs":
-                case "10 of Hearts":
-                case "10 of Spades":
-                case "10 of Diamonds":
-                case "Jack of Clubs":
-                case "Jack of Hearts":
-                case "Jack of Spades":
-                case "Jack of Diamonds":
-                case "Queen of Clubs":
-                case "Queen of Hearts":
-                case "Queen of Spades":
-                case "Queen of Diamonds":
-                case "King of Clubs":
-                case "King of Hearts":
-                case "King of Spades":
-                case "King of Diamonds":
-                    cardValue = 10;
-                    break;
-                default:
-                    cardValue = 0;
-                    break;
-            }
 
-            return cardValue;
-        }
-        public void PrintCards()
-        {
-            Console.WriteLine($"Dealer Card: {Card}");
+        // public void PrintCards()
+        // {
+        //     Console.WriteLine($"Dealer Card: {Card}");
 
-        }
+        // }
     }
     class Player
     {
         public string Card { get; set; }
-        public int Points()
-        {
-            var cardValue = 0;
-            switch (Card)
-            {
-                case "Ace of Clubs":
-                case "Ace of Hearts":
-                case "Ace of Spades":
-                case "Ace of Diamonds":
-                    cardValue = 1;
-                    break;
-                case "2 of Clubs":
-                case "2 of Hearts":
-                case "2 of Spades":
-                case "2 of Diamonds":
-                    cardValue = 2;
-                    break;
-                case "3 of Clubs":
-                case "3 of Hearts":
-                case "3 of Spades":
-                case "3 of Diamonds":
-                    cardValue = 3;
-                    break;
-                case "4 of Clubs":
-                case "4 of Hearts":
-                case "4 of Spades":
-                case "4 of Diamonds":
-                    cardValue = 4;
-                    break;
-                case "5 of Clubs":
-                case "5 of Hearts":
-                case "5 of Spades":
-                case "5 of Diamonds":
-                    cardValue = 5;
-                    break;
-                case "6 of Clubs":
-                case "6 of Hearts":
-                case "6 of Spades":
-                case "6 of Diamonds":
-                    cardValue = 6;
-                    break;
-                case "7 of Clubs":
-                case "7 of Hearts":
-                case "7 of Spades":
-                case "7 of Diamonds":
-                    cardValue = 7;
-                    break;
-                case "8 of Clubs":
-                case "8 of Hearts":
-                case "8 of Spades":
-                case "8 of Diamonds":
-                    cardValue = 8;
-                    break;
-                case "9 of Clubs":
-                case "9 of Hearts":
-                case "9 of Spades":
-                case "9 of Diamonds":
-                    cardValue = 9;
-                    break;
-                case "10 of Clubs":
-                case "10 of Hearts":
-                case "10 of Spades":
-                case "10 of Diamonds":
-                case "Jack of Clubs":
-                case "Jack of Hearts":
-                case "Jack of Spades":
-                case "Jack of Diamonds":
-                case "Queen of Clubs":
-                case "Queen of Hearts":
-                case "Queen of Spades":
-                case "Queen of Diamonds":
-                case "King of Clubs":
-                case "King of Hearts":
-                case "King of Spades":
-                case "King of Diamonds":
-                    cardValue = 10;
-                    break;
-                default:
-                    cardValue = 0;
-                    break;
-            }
 
-            return cardValue;
-        }
-        public void PrintCards()
-        {
-            Console.WriteLine($"Player Card: {Card}");
-
-        }
     }
+    // public void PrintCards()
+    // {
+    //     Console.WriteLine($"Player Card: {Card}");
+
+    // }
+
+    // static string PromptForResponse(string prompt)
+    // {
+    //     Console.Write(prompt);
+    //     var userInput = Console.ReadLine();
+    //     return userInput;
+    // }
     class Program
     {
 
-        static string PromptForResponse(string prompt)
-        {
-            Console.Write(prompt);
-            var userInput = Console.ReadLine();
-            return userInput;
-        }
         static void Main(string[] args)
         {
             // Create a List of cards
+            var deck = new List<Card>();
 
             var cardSuits = new List<string>() { "Clubs", "Diamonds", "Hearts", "Spades" };
             var cardValues = new List<string>() { "Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King" };
-            var cards = new List<string>();
 
             foreach (var suit in cardSuits)
             {
                 foreach (var value in cardValues)
                 {
-                    var newString = $"{value} of {suit}";
-                    cards.Add(newString);
+                    var newCard = new Card();
+                    newCard.Suit = suit;
+                    newCard.Value = value;
+                    // Console.WriteLine($"The {newCard.Value} of {newCard.Suit} is worth {newCard.Points()}");
+                    deck.Add(newCard);
                 }
             }
 
             // Shuffle Cards
 
-            var numberOfCards = cards.Count;
+            var numberOfCards = deck.Count;
 
             for (var rightIndex = numberOfCards - 1; rightIndex >= 1; rightIndex--)
             {
                 var leftIndex = new Random().Next(0, rightIndex);
-                var leftCard = cards[leftIndex];
-                var rightCard = cards[rightIndex];
-                cards[rightIndex] = leftCard;
-                cards[leftIndex] = rightCard;
+                var leftCard = deck[leftIndex];
+                var rightCard = deck[rightIndex];
+                deck[rightIndex] = leftCard;
+                deck[leftIndex] = rightCard;
             }
 
             // Create list of Dealer cards 
             // - Pull 2 cards off top of deck (0,1) for Dealer. 
             // (Need to save but not show yet)
 
-            var DealerCardOne = new Dealer
-            {
-                Card = cards[0],
-            };
+            // var DealerCardOne = new Dealer
+            // {
+            //     Card = cards[0],
+            // };
 
-            var DealerCardTwo = new Dealer
-            {
-                Card = cards[1],
-            };
+            // var DealerCardTwo = new Dealer
+            // {
+            //     Card = cards[1],
+            // };
 
             // - Create List Player cards - Pull 2 cards for the Player. (Print cards to screen)
 
-            var PlayerCardOne = new Player
-            {
-                Card = cards[2],
-            };
+            // var PlayerCardOne = new Player
+            // {
+            //     Card = cards[2],
+            // };
 
-            var PlayerCardTwo = new Player
-            {
-                Card = cards[3],
-            };
+            // var PlayerCardTwo = new Player
+            // {
+            //     Card = cards[3],
+            // };
 
             // - Display Player Cards
-            var playerPoints = PlayerCardOne.Points() + PlayerCardTwo.Points();
-            PlayerCardOne.PrintCards();
-            PlayerCardTwo.PrintCards();
-            Console.WriteLine(playerPoints);
+            // var playerPoints = PlayerCardOne.Points() + PlayerCardTwo.Points();
+            // PlayerCardOne.PrintCards();
+            // PlayerCardTwo.PrintCards();
+            // Console.WriteLine(playerPoints);
 
 
 
             // - If Player HITS:
             //   -- Loop to add to Player card List - Pull 1 card for Player
-            while (playerPoints < 21)
-            {
-                var userInput = PromptForResponse("Would you like to HIT, or STAND? ");
+            // while (playerPoints < 21)
+            // {
+            //     var userInput = PromptForResponse("Would you like to HIT, or STAND? ");
 
-                if (userInput == "HIT" || userInput == "Hit" || userInput == "hit")
-                {
+            //     if (userInput == "HIT" || userInput == "Hit" || userInput == "hit")
+            //     {
 
-                    var PlayerCardThree = new Player
-                    {
-                        Card = cards[4],
-                    };
-                    PlayerCardOne.PrintCards();
-                    PlayerCardTwo.PrintCards();
-                    PlayerCardThree.PrintCards();
-                    Console.WriteLine(PlayerCardOne.Points() + PlayerCardTwo.Points() + PlayerCardThree.Points());
+            //         var PlayerCardThree = new Player
+            //         {
+            //             Card = cards[4],
+            //         };
+            //         PlayerCardOne.PrintCards();
+            //         PlayerCardTwo.PrintCards();
+            //         PlayerCardThree.PrintCards();
+            //         Console.WriteLine(PlayerCardOne.Points() + PlayerCardTwo.Points() + PlayerCardThree.Points());
 
-                }
-                else if (userInput == "STAND" || userInput == "Stand" || userInput == "stand")
-                {
-                    Console.WriteLine($"User selected STAND");
-                    // Console.WriteLine($"Dealer Cards: {dealerCards[0]} and {dealerCards[1]} ");
-                }
-                else
-                {
-                    Console.WriteLine($"Please make a valid selection");
-                }
-            }
+            //     }
+            //     else if (userInput == "STAND" || userInput == "Stand" || userInput == "stand")
+            //     {
+            //         Console.WriteLine($"User selected STAND");
+            //     }
+            //     else
+            //     {
+            //         Console.WriteLine($"Please make a valid selection");
+            //     }
+            // }
 
             // - Display Dealer Cards
 
-            DealerCardOne.PrintCards();
-            DealerCardTwo.PrintCards();
+            // DealerCardOne.PrintCards();
+            // DealerCardTwo.PrintCards();
 
             // - Prompt - Give option for Player to HIT or STAND
 
@@ -307,26 +179,25 @@ namespace BlackJackCS
             //   -- If >= 17, no change
             //   -- If Dealer goes over 21, BUST
 
-            var dealerpoints = DealerCardOne.Points() + DealerCardTwo.Points();
+            //     var dealerpoints = DealerCardOne.Points() + DealerCardTwo.Points();
 
-            if (dealerpoints <= 16)
-            {
-                Console.WriteLine(dealerpoints);
-                Console.WriteLine($"Pick a card");
-            }
-            if (dealerpoints >= 17 && dealerpoints <= 21)
-            {
-                Console.WriteLine(dealerpoints);
-                Console.Write($"Don't pick a card");
-            }
-            else if (dealerpoints >= 17 && dealerpoints < 21)
-            {
-                Console.WriteLine(dealerpoints);
-                Console.Write($"Dealer is BUST!!");
-            }
+            //     if (dealerpoints <= 16)
+            //     {
+            //         Console.WriteLine(dealerpoints);
+            //         Console.WriteLine($"Pick a card");
+            //     }
+            //     if (dealerpoints >= 17 && dealerpoints <= 21)
+            //     {
+            //         Console.WriteLine(dealerpoints);
+            //         Console.Write($"Don't pick a card");
+            //     }
+            //     else if (dealerpoints >= 17 && dealerpoints < 21)
+            //     {
+            //         Console.WriteLine(dealerpoints);
+            //         Console.Write($"Dealer is BUST!!");
+            //     }
+
         }
-
-
     }
 
 }

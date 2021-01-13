@@ -3,6 +3,37 @@ using System.Collections.Generic;
 
 namespace BlackJackCS
 {
+    class Hand
+    {
+
+        // Property that is a list of all the cards this hand is holding
+        public List<Card> CardsInHand { get; set; } = new List<Card>();
+
+        public void PlaceInHand(Card cardToPlaceInHand)
+        {
+            CardsInHand.Add(cardToPlaceInHand);
+        }
+
+        public int TotalValue()
+        {
+            // How do we get the total cards in the hand?
+            // Start with grand total of 0
+            // for each card in the hand do the following
+            //    - Get the value of the current card
+            //    - Add that value to the grand total
+            //    - return the grand total
+
+            var grandTotal = 0;
+
+            foreach (var currentCardInHand in CardsInHand)
+            {
+                var currentCardValue = currentCardInHand.Points();
+
+                grandTotal = grandTotal + currentCardValue;
+            }
+            return grandTotal;
+        }
+    }
     class Card
     {
         public string Suit { get; set; }
@@ -32,43 +63,10 @@ namespace BlackJackCS
                     return 0;
             }
         }
-
     }
 
-    class Hand
-    {
-
-    }
-    class Dealer
-    {
-        public string Card { get; set; }
-
-        // public void PrintCards()
-        // {
-        //     Console.WriteLine($"Dealer Card: {Card}");
-
-        // }
-    }
-    class Player
-    {
-        public string Card { get; set; }
-
-    }
-    // public void PrintCards()
-    // {
-    //     Console.WriteLine($"Player Card: {Card}");
-
-    // }
-
-    // static string PromptForResponse(string prompt)
-    // {
-    //     Console.Write(prompt);
-    //     var userInput = Console.ReadLine();
-    //     return userInput;
-    // }
     class Program
     {
-
         static void Main(string[] args)
         {
             // Create a List of cards
@@ -96,106 +94,152 @@ namespace BlackJackCS
             for (var rightIndex = numberOfCards - 1; rightIndex >= 1; rightIndex--)
             {
                 var leftIndex = new Random().Next(0, rightIndex);
+
                 var leftCard = deck[leftIndex];
                 var rightCard = deck[rightIndex];
+
                 deck[rightIndex] = leftCard;
                 deck[leftIndex] = rightCard;
             }
+
+            Console.WriteLine($"Ready to Play");
 
             // Create list of Dealer cards 
             // - Pull 2 cards off top of deck (0,1) for Dealer. 
             // (Need to save but not show yet)
 
-            // var DealerCardOne = new Dealer
-            // {
-            //     Card = cards[0],
-            // };
+            var dealerHand = new Hand();
 
-            // var DealerCardTwo = new Dealer
-            // {
-            //     Card = cards[1],
-            // };
+            // Ask the deck for a card
+            var firstDealerCard = deck[0];
+            deck.Remove(firstDealerCard);
+            // Place it in Dealer's Hand
+            dealerHand.PlaceInHand(firstDealerCard);
+
+            var secondDealerCard = deck[0];
+            deck.Remove(secondDealerCard);
+            // Place it in Dealer's Hand
+            dealerHand.PlaceInHand(secondDealerCard);
 
             // - Create List Player cards - Pull 2 cards for the Player. (Print cards to screen)
 
-            // var PlayerCardOne = new Player
-            // {
-            //     Card = cards[2],
-            // };
+            var playerHand = new Hand();
 
-            // var PlayerCardTwo = new Player
-            // {
-            //     Card = cards[3],
-            // };
+            // Ask the deck for a card
+            var firstPlayerCard = deck[0];
+            deck.Remove(firstPlayerCard);
+            // Place it in Dealer's Hand
+            playerHand.PlaceInHand(firstPlayerCard);
 
-            // - Display Player Cards
-            // var playerPoints = PlayerCardOne.Points() + PlayerCardTwo.Points();
-            // PlayerCardOne.PrintCards();
-            // PlayerCardTwo.PrintCards();
-            // Console.WriteLine(playerPoints);
+            var secondPlayerCard = deck[0];
+            deck.Remove(secondPlayerCard);
+            // Place it in Dealer's Hand
+            playerHand.PlaceInHand(secondPlayerCard);
 
+            //declare a variable early - have to specify
+            string hitOrStand;
 
+            do
+            {
+                // Show the cards in the Player's hand
 
-            // - If Player HITS:
-            //   -- Loop to add to Player card List - Pull 1 card for Player
-            // while (playerPoints < 21)
-            // {
-            //     var userInput = PromptForResponse("Would you like to HIT, or STAND? ");
+                // Problem: Have a list of cards and want to print them all
+                // Example: Card with Face = "Ace" Suit = "Clubs", Face = "Jack" Suit = "Diamonds"
+                //          You have the Ace o Clubs
+                //          You have the Jack of Diamonds
+                // D: List, Card, strings of the Face and Suit
+                // A: for each card in our list of cards,do the following step
+                //    - print a string that looks like " You have <put the FACE here> of <put the SUIT here>
 
-            //     if (userInput == "HIT" || userInput == "Hit" || userInput == "hit")
-            //     {
+                foreach (var cardInPlayerHand in playerHand.CardsInHand)
+                {
+                    Console.WriteLine($"You have the {cardInPlayerHand.Value} of {cardInPlayerHand.Suit}");
+                }
 
-            //         var PlayerCardThree = new Player
-            //         {
-            //             Card = cards[4],
-            //         };
-            //         PlayerCardOne.PrintCards();
-            //         PlayerCardTwo.PrintCards();
-            //         PlayerCardThree.PrintCards();
-            //         Console.WriteLine(PlayerCardOne.Points() + PlayerCardTwo.Points() + PlayerCardThree.Points());
+                // Get total value of cards in PlayerHand
+                var thePlayerHandTotalValue = playerHand.TotalValue();
 
-            //     }
-            //     else if (userInput == "STAND" || userInput == "Stand" || userInput == "stand")
-            //     {
-            //         Console.WriteLine($"User selected STAND");
-            //     }
-            //     else
-            //     {
-            //         Console.WriteLine($"Please make a valid selection");
-            //     }
-            // }
+                Console.WriteLine($"You have the {thePlayerHandTotalValue} points");
 
-            // - Display Dealer Cards
+                var thePlayerTotalValue = playerHand.TotalValue();
+                Console.WriteLine($"Your hand is worth {thePlayerTotalValue}");
 
-            // DealerCardOne.PrintCards();
-            // DealerCardTwo.PrintCards();
+                // - If Player HITS:
+                //   -- Loop to add to Player card List - Pull 1 card for Player
+                Console.Write("Would you like to HIT, or STAND? ");
+                hitOrStand = Console.ReadLine();
+
+                if (hitOrStand == "HIT")
+                {
+                    var cardFromSelectingHitOption = deck[0];
+                    deck.Remove(cardFromSelectingHitOption);
+
+                    playerHand.PlaceInHand(cardFromSelectingHitOption);
+
+                }
+
+            } while (hitOrStand == "HIT" && playerHand.TotalValue() <= 21);
+
+            if (playerHand.TotalValue() > 21)
+            {
+                foreach (var cardInPlayerhand in playerHand.CardsInHand)
+                {
+                    Console.WriteLine($"You have the {cardInPlayerhand.Value} of {cardInPlayerhand.Suit}");
+                }
+                Console.WriteLine($"Your hand is worth {playerHand.TotalValue()} points");
+
+            }
+            else
+            {
+
+                // - Check dealer cards total
+                //   -- If < 17, pull another card until >= 17
+                //   -- If >= 17, no change
+                //   -- If Dealer goes over 21, BUST
+
+                while (dealerHand.TotalValue() < 17)
+                {
+                    var cardDealtToDealer = deck[0];
+                    deck.Remove(cardDealtToDealer);
+                    dealerHand.PlaceInHand(cardDealtToDealer);
+                }
+
+                // - Display Dealer Cards
+
+                Console.WriteLine();
+
+                foreach (var cardInDealerhand in dealerHand.CardsInHand)
+                {
+                    Console.WriteLine($"You have the {cardInDealerhand.Value} of {cardInDealerhand.Suit}");
+                }
+
+                Console.WriteLine($"The dealer has {dealerHand.TotalValue()} points");
+            }
+
+            if (playerHand.TotalValue() > 21)
+            {
+                Console.WriteLine("DEALER WINS");
+            }
+            else if (dealerHand.TotalValue() > 21)
+            {
+                Console.WriteLine("PLAYER WINS");
+            }
+            else if (dealerHand.TotalValue() >= playerHand.TotalValue())
+            {
+                Console.WriteLine("DEALER WINS");
+            }
+            else
+            {
+                Console.WriteLine("PLAYER WINS");
+            };
+
 
             // - Prompt - Give option for Player to HIT or STAND
 
 
 
-            // - Check dealer cards total
-            //   -- If <= 16, pull another card until >= 17
-            //   -- If >= 17, no change
-            //   -- If Dealer goes over 21, BUST
 
-            //     var dealerpoints = DealerCardOne.Points() + DealerCardTwo.Points();
 
-            //     if (dealerpoints <= 16)
-            //     {
-            //         Console.WriteLine(dealerpoints);
-            //         Console.WriteLine($"Pick a card");
-            //     }
-            //     if (dealerpoints >= 17 && dealerpoints <= 21)
-            //     {
-            //         Console.WriteLine(dealerpoints);
-            //         Console.Write($"Don't pick a card");
-            //     }
-            //     else if (dealerpoints >= 17 && dealerpoints < 21)
-            //     {
-            //         Console.WriteLine(dealerpoints);
-            //         Console.Write($"Dealer is BUST!!");
-            //     }
 
         }
     }
